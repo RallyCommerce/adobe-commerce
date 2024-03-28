@@ -9,7 +9,7 @@ use Magento\Framework\Api\ExtensibleDataInterface;
  *
  * @api
  */
-interface CartDataInterface  extends ExtensibleDataInterface
+interface CartDataInterface extends ExtensibleDataInterface
 {
     public const KEY_ORGANIZATION_ID = 'organization_id';
     public const KEY_EXTERNAL_ID = 'external_id';

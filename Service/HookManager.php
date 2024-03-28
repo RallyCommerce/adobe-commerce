@@ -31,6 +31,7 @@ class HookManager implements HookManagerInterface
         "order/create" => ["post","rest/V1/merchants/:orgId/orders"],
         "order/update" => ["put","rest/V1/merchants/:orgId/orders/:resourceId"],
         "order/fetch" => ["get","rest/V1/merchants/:orgId/orders/:resourceId"],
+        "orders/list" => ["get","rest/V1/merchants/:orgId/orders"],
         "products/fetch" => ["post","rest/V1/merchants/:orgId/products/search"],
         "categories/fetch" => ["post","rest/V1/merchants/:orgId/categories/search"],
         "shipping_zones/fetch" => ["get","rest/V1/merchants/:orgId/shipping-zones"],

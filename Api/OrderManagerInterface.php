@@ -6,6 +6,7 @@ use Magento\Framework\Webapi\Exception;
 use Rally\Checkout\Api\Data\OrderDataInterface;
 use Magento\Framework\Exception\InputException;
 use Magento\Framework\Exception\LocalizedException;
+use Rally\Checkout\Api\Data\OrdersListDataInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\Exception\CouldNotSaveException;
 
@@ -24,6 +25,15 @@ interface OrderManagerInterface
      * @throws Exception
      */
     public function get(string $orgId, string $externalId): OrderDataInterface;
+
+    /**
+     * Get orders list
+     *
+     * @param string $orgId
+     * @return OrdersListDataInterface
+     * @throws Exception
+     */
+    public function getList(string $orgId): OrdersListDataInterface;
 
     /**
      * Update the specified order.

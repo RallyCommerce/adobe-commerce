@@ -39,6 +39,7 @@ use Magento\InventoryCatalogApi\Model\GetProductTypesBySkusInterface;
 use Magento\InventoryConfigurationApi\Model\IsSourceItemManagementAllowedForProductTypeInterface;
 use Rally\Checkout\Api\Data\PaymentDataInterface;
 use Rally\Checkout\Service\Order\DataManager;
+use Rally\Checkout\Api\Data\OrdersListDataInterface;
 
 /**
  * Checkout OrderManager model.
@@ -87,7 +88,17 @@ class OrderManager implements OrderManagerInterface
      */
     public function get(string $orgId, string $externalId): OrderDataInterface
     {
+        $this->requestValidator->validate();
         return $this->orderDataManager->getOrderData($externalId);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getList(string $orgId): OrdersListDataInterface
+    {
+        $this->requestValidator->validate();
+        return $this->orderDataManager->getList();
     }
 
     /**

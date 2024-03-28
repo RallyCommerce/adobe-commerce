@@ -67,6 +67,12 @@
             <resource ref="anonymous"/>
         </resources>
     </route>
+    <route url="/V1/merchants/:orgId/orders" method="GET">
+        <service class="Rally\Checkout\Api\OrderManagerInterface" method="getList"/>
+        <resources>
+            <resource ref="anonymous"/>
+        </resources>
+    </route>
     <route url="/V1/merchants/:orgId/products/search" method="POST">
         <service class="Rally\Checkout\Api\ProductsManagerInterface" method="get"/>
         <resources>

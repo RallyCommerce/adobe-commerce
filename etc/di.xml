@@ -36,6 +36,9 @@
     <preference for="Rally\Checkout\Api\Data\VariantsPricesDataInterface" type="Rally\Checkout\Model\Data\VariantsPricesData" />
     <preference for="Rally\Checkout\Api\Data\VariantValuesDataInterface" type="Rally\Checkout\Model\Data\VariantValuesData" />
     <preference for="Rally\Checkout\Api\Data\ProductVariantsDataInterface" type="Rally\Checkout\Model\Data\ProductVariantsData" />
+    <preference for="Rally\Checkout\Api\Data\OrdersListDataInterface" type="Rally\Checkout\Model\Data\OrdersListData" />
+    <preference for="Rally\Checkout\Api\Data\ListOrderDataInterface" type="Rally\Checkout\Model\Data\ListOrderData" />
+    <preference for="Rally\Checkout\Api\Data\ListOrderProductDataInterface" type="Rally\Checkout\Model\Data\ListOrderProductData" />
     <type name="Rally\Checkout\Service\CartMapper">
         <arguments>
             <argument name="cartDataMappers" xsi:type="array">

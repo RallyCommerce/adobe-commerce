@@ -9,7 +9,7 @@ use Magento\Framework\Api\ExtensibleDataInterface;
  *
  * @api
  */
-interface RegisterDataInterface  extends ExtensibleDataInterface
+interface RegisterDataInterface extends ExtensibleDataInterface
 {
     public const KEY_STORE_NAME = 'store_name';
     public const KEY_STORE_URL = 'store_url';

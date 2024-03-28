@@ -164,14 +164,18 @@ class LineItemsManager
             }
 
             $itemPrice = $product->getPrice() ?: $item->getPrice();
-            $finalPrice = $item->getCustomPrice() ?? $product->getFinalPrice();
+            $customPrice = $type == 'hook' ? $item->getCustomPrice() : $item->getPrice();
+            $finalPrice = $customPrice ?? $product->getFinalPrice();
             $storeCurrencyCode = $cart->getStoreCurrencyCode();
             $cartCurrencyCode = $type == "hook" ? $cart->getQuoteCurrencyCode() : $cart->getOrderCurrencyCode();
 
-            if ($storeCurrencyCode != $cartCurrencyCode && !$item->getCustomPrice()) {
+            if ($storeCurrencyCode != $cartCurrencyCode) {
                 $store = $cart->getStore();
                 $itemPrice = $this->currencyConverter->convertAndRound($itemPrice, $store, $cartCurrencyCode);
-                $finalPrice = $this->currencyConverter->convertAndRound($finalPrice, $store, $cartCurrencyCode);
+
+                if (!$customPrice) {
+                    $finalPrice = $this->currencyConverter->convertAndRound($finalPrice, $store, $cartCurrencyCode);
+                }
             }
 
             $productTypes = [ProductType::TYPE_VIRTUAL, DownloadableType::TYPE_DOWNLOADABLE];

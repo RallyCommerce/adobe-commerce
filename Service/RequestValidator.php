@@ -7,6 +7,7 @@ use Magento\Framework\Webapi\Rest\Request;
 use Rally\Checkout\Api\ConfigInterface;
 use Magento\Quote\Api\Data\CartInterface;
 use Magento\Store\Model\StoreManagerInterface;
+use Magento\Framework\Serialize\Serializer\Json;
 use Magento\Framework\Webapi\Exception as WebapiException;
 use Rally\Checkout\Api\Service\RequestValidatorInterface;
 use Rally\Checkout\Api\Service\HmacGeneratorInterface;
@@ -23,6 +24,7 @@ class RequestValidator implements RequestValidatorInterface
     public const HTTP_NOT_ACCEPTABLE = 406;
 
     public function __construct(
+        private readonly Json $json,
         private readonly Request $request,
         private readonly ConfigInterface $rallyConfig,
         private readonly StoreManagerInterface $storeManager,
@@ -37,6 +39,8 @@ class RequestValidator implements RequestValidatorInterface
     {
         $requestHmac = $this->request->getHeader('X-HMAC-SHA256');
         $requestBody = $this->request->getContent();
+        $queryParams = $this->request->getQueryValue();
+        $requestBody = (!$requestBody && !empty($queryParams)) ? $this->json->serialize($queryParams) : $requestBody;
         $magentoHmac = $this->hmacGenerator->generateHmac($requestBody);
 
         if (!$this->rallyConfig->isEnabled()) {

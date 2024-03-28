@@ -9,7 +9,7 @@ use Magento\Framework\Api\ExtensibleDataInterface;
  *
  * @api
  */
-interface OrderDataInterface  extends ExtensibleDataInterface
+interface OrderDataInterface extends ExtensibleDataInterface
 {
     public const KEY_EXTERNAL_ID = 'external_id';
     public const KEY_EXTERNAL_NUMBER = 'external_number';
