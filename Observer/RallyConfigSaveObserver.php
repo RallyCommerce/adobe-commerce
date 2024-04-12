@@ -14,7 +14,6 @@ use Magento\Framework\Message\ManagerInterface as MessageManagerInterface;
 use Magento\Framework\App\RequestInterface;
 use Magento\Store\Model\StoreManagerInterface;
 use Magento\Framework\HTTP\Client\CurlFactory;
-use Magento\Framework\HTTP\PhpEnvironment\RemoteAddress;
 
 /**
  * Rally config save observer
@@ -37,8 +36,7 @@ class RallyConfigSaveObserver implements ObserverInterface
         private readonly MessageManagerInterface $messageManager,
         private readonly RequestInterface $request,
         private readonly StoreManagerInterface $storeManager,
-        private readonly CurlFactory $curlFactory,
-        private readonly RemoteAddress $remoteAddress
+        private readonly CurlFactory $curlFactory
     ) {
     }
 
@@ -94,7 +92,6 @@ class RallyConfigSaveObserver implements ObserverInterface
         $result = true;
         $requestIp = $this->request->getClientIp();
         $serverIp = $this->request->get('SERVER_ADDR');
-        $httpHost = $this->request->getHttpHost();
 
         if ($requestIp == self::LOCALHOST_IP || $serverIp == self::LOCALHOST_IP) {
             $result = false;
@@ -109,9 +106,11 @@ class RallyConfigSaveObserver implements ObserverInterface
             }
             $store = $this->storeManager->getStore($storeId);
             $baseUrl = $store->getBaseUrl();
+            $userAgent = $this->request->getServer('HTTP_USER_AGENT');
 
             $curl = $this->curlFactory->create();
             $curl->setTimeout(15);
+            $curl->setOption(CURLOPT_USERAGENT, $userAgent);
             $curl->get($baseUrl);
 
             if ($curl->getStatus() !== self::HTTP_OK) {
