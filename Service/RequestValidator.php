@@ -127,4 +127,18 @@ class RequestValidator implements RequestValidatorInterface
             $currentStore->setCurrentCurrencyCode($quote->getQuoteCurrencyCode());
         }
     }
+
+    /**
+     * @inheritdoc
+     */
+    public function handleVirtualCart(): void
+    {
+        $isOfferRequest = $this->request->getHeader('X-Rally-Offers-Only');
+
+        if ($isOfferRequest && $isOfferRequest == 1) {
+            return;
+        }
+
+        $this->handleException('cart_contains_only_digital_items');
+    }
 }

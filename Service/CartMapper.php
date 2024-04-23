@@ -76,7 +76,7 @@ class CartMapper
         }
 
         if ($quote->getIsVirtual()) {
-            $this->requestValidator->handleException('cart_contains_only_digital_items');
+            $this->requestValidator->handleVirtualCart();
         }
 
         $cartData->setOrganizationId($orgId)
@@ -130,7 +130,7 @@ class CartMapper
         }
 
         if ($quote->getIsVirtual()) {
-            $this->requestValidator->handleException('cart_contains_only_digital_items');
+            $this->requestValidator->handleVirtualCart();
         }
 
         foreach ($this->cartDataMappers as $cartDataMapper) {

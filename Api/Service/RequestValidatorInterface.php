@@ -50,4 +50,12 @@ interface RequestValidatorInterface
      * @throws NoSuchEntityException
      */
     public function handleMultiStoreCurrency(CartInterface $quote): void;
+
+    /**
+     * Handle virtual cart request
+     *
+     * @return void
+     * @throws WebapiException
+     */
+    public function handleVirtualCart(): void;
 }

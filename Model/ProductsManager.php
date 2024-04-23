@@ -63,7 +63,7 @@ class ProductsManager implements ProductsManagerInterface
      */
     public function get(string $orgId): array
     {
-        $productType = [ProductType::TYPE_SIMPLE, ConfigurableType::TYPE_CODE];
+        $productType = [ProductType::TYPE_SIMPLE, ProductType::TYPE_VIRTUAL, ConfigurableType::TYPE_CODE];
         $this->requestValidator->validate();
         $body = $this->request->getBodyParams();
         $store = $this->storeManager->getStore();
@@ -127,7 +127,7 @@ class ProductsManager implements ProductsManagerInterface
             ->setTitle($product->getName())
             ->setBodyHtml($product->getDescription())
             ->setVendor("")
-            ->setProductType('physical')
+            ->setProductType($typeId == ProductType::TYPE_VIRTUAL ? 'digital' : 'physical')
             ->setInventoryQuantity($productQty)
             ->setInventoryManagement($management)
             ->setImgSrc($imageUrl)

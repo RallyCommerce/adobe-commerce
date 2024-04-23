@@ -32,6 +32,15 @@ function (
                 return;
             }
 
+            if (checkoutData?.quoteData?.is_virtual) {
+                let isVirtualCart = cart.items.every(item => item.is_virtual == 1);
+
+                if (!isVirtualCart) {
+                    window.location.reload();
+                    return;
+                }
+            }
+
             let itemsImageData = cart.items.reduce((images, cartItem) => {
                 images[cartItem.item_id] = cartItem.product_image;
                 return images;
